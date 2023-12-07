@@ -1,0 +1,8 @@
+#!/usr/bin/perl -T
+
+use strict;
+use warnings;
+
+use PMXCustom::CLI::pmxtask;
+
+PMXCustom::CLI::pmxtask->run_cli_handler();
