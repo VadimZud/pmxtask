@@ -3,6 +3,6 @@
 use strict;
 use warnings;
 
-use PMXCustom::CLI::pmxtask;
+use PMX::CLI::pmxtask;
 
-PMXCustom::CLI::pmxtask->run_cli_handler();
+PMX::CLI::pmxtask->run_cli_handler();
