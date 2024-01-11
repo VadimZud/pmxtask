@@ -1,0 +1,62 @@
+= pmxtask(1)
+Vadim Zudin
+:doctype: manpage
+:release-version: 1.0.0
+:man manual: PMXTask Manual
+:man source: PMXTask {release-version}
+
+== Name
+
+pmxtask - start command as Proxmox task
+
+== Synopsis
+
+include::../pmxtask.synopsis.adoc[]
+
+== Description
+
+**pmxtask** allows to start arbitrary command on Proxmox node as Proxmox task.
+
+You can check command status and output from Proxmox API and web interface.
+
+== Examples
+
+For start simple command use:
+  
+ pmxtask echo hello
+
+By default command stay in foreground in current terminal.
+If you need background task use `--background` option:
+
+ pmxtask --background 1 echo hello
+
+By default task use "pmxlock" as task description.
+You can set other task description with `--dtype` option
+
+ pmxtask --dtype echo_command echo hello
+
+You can send notifications about task to email address specified for user 'root@pam'.
+Use `--notify` option for both successful and error task exit notifications:
+
+ pmxtask --notify 1 echo hello
+
+or use `--notifyerr` for only error notifications:
+
+ pmxtask --notifyerr 1 echo hello
+
+use `--quiet` option for suppress command output from task log:
+ 
+ pmxtask --quiet 1 echo hello
+
+If command has options use `--` before command in order to stop options parsing by pmxtask:
+
+ pmxtask -- echo -n hello
+
+Complex command example:
+
+ pmxtask --dtype ansible --background 1 --notify 1 -- ansible-playbook --limit online cluster.yml
+
+== Copying
+
+Copyright (C) 2024 {author}. +
+GNU General Public License v3.0+ (see https://www.gnu.org/licenses/gpl-3.0.txt)
