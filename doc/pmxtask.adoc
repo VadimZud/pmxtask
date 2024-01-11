@@ -1,7 +1,6 @@
 = pmxtask(1)
 Vadim Zudin
 :doctype: manpage
-:release-version: 1.0.0
 :man manual: PMXTask Manual
 :man source: PMXTask {release-version}
 

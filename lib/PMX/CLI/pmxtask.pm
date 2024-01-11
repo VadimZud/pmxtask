@@ -1,4 +1,4 @@
-package PMXCustom::CLI::pmxtask;
+package PMX::CLI::pmxtask;
 
 use strict;
 use warnings;
