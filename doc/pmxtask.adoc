@@ -1,5 +1,5 @@
 = pmxtask(1)
-Vadim Zudin
+Vadim Zudin <zudinvadim@gmail.com>
 :doctype: manpage
 :man manual: PMXTask Manual
 :man source: PMXTask {release-version}
@@ -57,5 +57,5 @@ Complex command example:
 
 == Copying
 
-Copyright (C) 2024 {author}. +
+Copyright (C) 2024 {author} <{email}>. +
 GNU General Public License v3.0+ (see https://www.gnu.org/licenses/gpl-3.0.txt)
