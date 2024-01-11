@@ -7,29 +7,33 @@ ZSHCOMPLDIR=$(DESTDIR)/usr/share/zsh/vendor-completions/
 TOOL=pmxtask
 VERSION=1.0.0
 
-all: $(TOOL).1 $(TOOL).bash-completion $(TOOL).zsh-completion
+.PHONY: all
+all: build/$(TOOL).1 build/$(TOOL).bash-completion build/$(TOOL).zsh-completion
 
-$(TOOL).1: doc/$(TOOL).adoc $(TOOL).synopsis.adoc
-	asciidoctor -b manpage doc/pmxtask.adoc -D . -a release-version=$(VERSION)
+build/$(TOOL).1: doc/$(TOOL).adoc build/$(TOOL).synopsis.adoc
+	asciidoctor -b manpage doc/pmxtask.adoc -D build -a release-version=$(VERSION)
 
-$(TOOL).synopsis.adoc: lib/PMX/CLI/$(TOOL).pm
-	perl -Ilib -MPMX::CLI::$(TOOL) -e 'print PMX::CLI::$(TOOL)->generate_asciidoc_synopsis()' > $(TOOL).synopsis.adoc
+build/$(TOOL).synopsis.adoc: lib/PMX/CLI/$(TOOL).pm
+	mkdir -p build
+	perl -Ilib -MPMX::CLI::$(TOOL) -e 'print PMX::CLI::$(TOOL)->generate_asciidoc_synopsis()' > build/$(TOOL).synopsis.adoc
 
-$(TOOL).bash-completion: lib/PMX/CLI/$(TOOL).pm
-	perl -Ilib -MPMX::CLI::$(TOOL) -e 'print PMX::CLI::$(TOOL)->generate_bash_completions()' > $(TOOL).bash-completion
+build/$(TOOL).bash-completion: lib/PMX/CLI/$(TOOL).pm
+	mkdir -p build
+	perl -Ilib -MPMX::CLI::$(TOOL) -e 'print PMX::CLI::$(TOOL)->generate_bash_completions()' > build/$(TOOL).bash-completion
 
-$(TOOL).zsh-completion: lib/PMX/CLI/$(TOOL).pm
-	perl -Ilib -MPMX::CLI::$(TOOL) -e 'print PMX::CLI::$(TOOL)->generate_zsh_completions()' > $(TOOL).zsh-completion
+build/$(TOOL).zsh-completion: lib/PMX/CLI/$(TOOL).pm
+	mkdir -p build
+	perl -Ilib -MPMX::CLI::$(TOOL) -e 'print PMX::CLI::$(TOOL)->generate_zsh_completions()' > build/$(TOOL).zsh-completion
 
 .PHONY: install
 install: all
 	install bin/$(TOOL) $(BINDIR)
 	install -D -m655 lib/PMX/CLI/$(TOOL).pm $(PERLLIBDIR)/PMX/CLI/$(TOOL).pm
-	install -m655 $(TOOL).1 $(MAN1DIR)
-	install -m655 $(TOOL).bash-completion $(BASHCOMPLDIR)/$(TOOL)
-	install -m655 $(TOOL).zsh-completion $(ZSHCOMPLDIR)/$(TOOL)
+	install -m655 build/$(TOOL).1 $(MAN1DIR)
+	install -m655 build/$(TOOL).bash-completion $(BASHCOMPLDIR)/$(TOOL)
+	install -m655 build/$(TOOL).zsh-completion $(ZSHCOMPLDIR)/$(TOOL)
 
 .PHONY: clean
 clean:
-	rm $(TOOL).zsh-completion $(TOOL).bash-completion $(TOOL).synopsis.adoc $(TOOL).1
+	rm -r build
 	

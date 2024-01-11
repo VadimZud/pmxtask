@@ -10,7 +10,7 @@ pmxtask - start command as Proxmox task
 
 == Synopsis
 
-include::../pmxtask.synopsis.adoc[]
+include::../build/pmxtask.synopsis.adoc[]
 
 == Description
 
