@@ -27,13 +27,13 @@ build/$(TOOL).zsh-completion: lib/PMX/CLI/$(TOOL).pm
 
 .PHONY: install
 install: all
-	install bin/$(TOOL) $(BINDIR)
+	install -D bin/$(TOOL) $(BINDIR)/$(TOOL)
 	install -D -m655 lib/PMX/CLI/$(TOOL).pm $(PERLLIBDIR)/PMX/CLI/$(TOOL).pm
-	install -m655 build/$(TOOL).1 $(MAN1DIR)
-	install -m655 build/$(TOOL).bash-completion $(BASHCOMPLDIR)/$(TOOL)
-	install -m655 build/$(TOOL).zsh-completion $(ZSHCOMPLDIR)/$(TOOL)
+	install -D -m655 build/$(TOOL).1 $(MAN1DIR)/$(TOOL).1
+	install -D -m655 build/$(TOOL).bash-completion $(BASHCOMPLDIR)/$(TOOL)
+	install -D -m655 build/$(TOOL).zsh-completion $(ZSHCOMPLDIR)/$(TOOL)
 
 .PHONY: clean
 clean:
-	rm -r build
+	rm -rf build
 	
